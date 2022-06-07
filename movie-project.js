@@ -19,15 +19,17 @@ const deleteMovie = (id) => {
 
 const renderMovies = () => {
     getMovies().then(data => {
-        let movies = data.map(movie => {
+        let movies = Promise.all(data.map(async movie => {
+            const srcUrl = await getPosters(movie.title)
             return `
             <div>
             <h4>Title: ${movie.title}</h4>
+            <img style="height: 150px; width: 120px" src="${srcUrl}" >
             <p>Director: ${movie.director}</p>
             <p>Rating: ${movie.rating}</p>
             <p>Genre: ${movie.genre}</p>
             <label for="edit-title-box">Edit Title: </label>
-            <input type="text" class="edit-title-box" name="asdfdsf"  data-id="${movie.id}" placeholder="${movie.title}">
+            <input type="text" class="edit-title-box" data-id="${movie.id}" placeholder="${movie.title}">
             <label for="edit-director-box">Edit Director: </label>
             <input type="text" class="edit-director-box" data-id="${movie.id}" placeholder="${movie.director}">
             <label for="edit-rating-box">Edit Rating: </label>
@@ -37,8 +39,11 @@ const renderMovies = () => {
             <button data-id="${movie.id}" class="edit">Edit</button>
             <button data-id="${movie.id}" class="delete">Delete</button>       
             </div>`
+        }));
+        movies.then(data => {
+
+        $('#main-body').html(data);
         })
-        $('#main-body').html(movies.join(""));
     }).then(result => {
         $('.edit').each(function () {
             $(this).click(function () {
@@ -137,8 +142,8 @@ const editMovie = (movie) => {
     return fetch(`${URL}/${movie.id}`, options).then(data => data.json()).then(renderMovies)
 }
 
-// const getPosters = (movie) => {
-//     const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
-//     return fetch(URL).then(res => res.json()).then(data => data.Poster);
-// }
+const getPosters = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Poster);
+}
 // getPosters('Step Brothers').then(data => console.log(data))
