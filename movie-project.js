@@ -108,6 +108,16 @@ $("#add-movie-btn").click(function () {
         rating: $('#add-rating').val(),
         genre: $('#add-genre').val()
     };
+    // let posterURL = getPosters($("#add-movie").val()).then(posterUrl => {
+    //     console.log(posterUrl)
+    //     // const {Poster} = data;
+    //     $('img').each(function () {
+    //         if ($(this).attr('data-id') === $(this).parent().children('.edit-director-box').attr('data-id')) {
+    //             $(this).attr('src', posterUrl)
+    //         }
+    //     })
+    // })
+    // console.log(posterURL);
     addMovie(newMovie).then(renderMovies);
     $("#add-movie").val('')
     $('#add-director').val('')
@@ -126,3 +136,9 @@ const editMovie = (movie) => {
     }
     return fetch(`${URL}/${movie.id}`, options).then(data => data.json()).then(renderMovies)
 }
+
+// const getPosters = (movie) => {
+//     const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+//     return fetch(URL).then(res => res.json()).then(data => data.Poster);
+// }
+// getPosters('Step Brothers').then(data => console.log(data))
