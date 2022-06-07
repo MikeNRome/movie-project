@@ -109,6 +109,10 @@ $("#add-movie-btn").click(function () {
         genre: $('#add-genre').val()
     };
     addMovie(newMovie).then(renderMovies);
+    $("#add-movie").val('')
+    $('#add-director').val('')
+    $('#add-rating').val('')
+    $('#add-genre').val('')
 })
 
 const editMovie = (movie) => {
