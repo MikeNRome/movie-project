@@ -40,7 +40,7 @@ const renderMovies = () => {
             <button data-id="${movie.id}" class="delete">Delete</button>       
             </div>`
         }));
-        movies.then(data => {
+        return movies.then(data => {
 
         $('#main-body').html(data);
         })
@@ -87,6 +87,7 @@ const renderMovies = () => {
         })
         $('.delete').each(function () {
             $(this).click(function () {
+                console.log('delete');
                 deleteMovie($(this).attr('data-id')).then(renderMovies)
             })
         });
