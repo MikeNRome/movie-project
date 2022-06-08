@@ -43,7 +43,7 @@ const renderMovies = () => {
                         <p><span class="fw-bold">Actors:</span> ${actors}</p>
                         <p><span class="fw-bold">Director:</span> ${director}</p>
                     </div>
-                     <a href="#" style="text-decoration: none"><i  class="d-flex fa-solid fa-pen justify-content-center mt-2 mb-2"></i ></a>   
+                     <a href="#${movie.id}" style="text-decoration: none"><i  class="d-flex fa-solid fa-pen justify-content-center mt-2 mb-2"></i ></a>   
                     <div class="d-flex hide input-group w-100 mx-2" id="hidden-buttons">
                     <input type="text" class="edit-title-box form-control" data-id="${movie.id}" placeholder="${title}">
                     <button data-id="${movie.id}" class="edit btn btn-outline-primary" type="button">Edit</button>
@@ -148,39 +148,39 @@ const editMovie = (movie) => {
 }
 
 const getPosters = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Poster);
 }
 const getDirector = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Director);
 }
 const getGenre = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Genre);
 }
 const getRatingSource = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`; http://www.omdbapi.com/?i=tt3896198&apikey=f7905191
     return fetch(URL).then(res => res.json()).then(data => data.Ratings[1].Source);
 }
 const getRatingValue = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Ratings[1].Value);
 }
 const getPlot = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Plot);
 }
 const getReleaseDate = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Released);
 }
 const getActors = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Actors);
 }
 const getTitle = (movie) => {
-    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    const URL = `http://www.omdbapi.com/?i=tt3896198&apikey=f7905191&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Title);
 }
 
