@@ -29,6 +29,9 @@ const renderMovies = () => {
             const releaseDate = await getReleaseDate(movie.title)
             const actors = await getActors(movie.title)
             const title = await getTitle(movie.title)
+            const movieID = await getMovieID(movie.title)
+            const movieYTKey = await getMovieTrailerKey(movieID)
+            // const movieURL = await getMovieTrailer(movieYTKey)
             // const awards = await getAwards(movie.title)
             //language=HTML
             return `
@@ -42,6 +45,7 @@ const renderMovies = () => {
                         <p><span class="fw-bold">Plot:</span> ${plot}</p>
                         <p><span class="fw-bold">Actors:</span> ${actors}</p>
                         <p><span class="fw-bold">Director:</span> ${director}</p>
+                        <p><a href="https://www.youtube.com/watch?v=${movieYTKey}" style="text-decoration: none; color: blue; font-weight: bold">Watch The Trailer</a></p>
                     </div>
                      <a href="#${movie.id}" style="text-decoration: none"><i  class="d-flex fa-solid fa-pen justify-content-center mt-2 mb-2"></i ></a>   
                     <div class="d-flex hide input-group w-100 mx-2" id="hidden-buttons">
@@ -184,7 +188,20 @@ const getTitle = (movie) => {
     return fetch(URL).then(res => res.json()).then(data => data.Title);
 }
 
+const getMovieID = (movie) => {
+    const URL = `https://api.themoviedb.org/3/search/movie?api_key=849017757da279f910fb0334ceecc66f&query=${encodeURIComponent(movie)}`
+    return fetch(URL).then(res => res.json()).then(data => data.results[0].id)
+}
 
+const getMovieTrailerKey = (id) => {
+    const URL = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=849017757da279f910fb0334ceecc66f&language=en-US`
+    return fetch(URL).then(res => res.json()).then(data => data.results[0].key)
+}
+// const getMovieTrailer = (key) => {
+//     const URL = `https://www.youtube.com/watch?v=${key}`
+//     return fetch(URL).then(res => res.json()).then(data => data)
+// }
+// getMovieTrailer('d9vC9gUnTTc')
 // const getAwards = (movie) => {
 //     const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
 //     return fetch(URL).then(res => res.json()).then(data => data.Awards);
