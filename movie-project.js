@@ -21,21 +21,26 @@ const renderMovies = () => {
     getMovies().then(data => {
         let movies = Promise.all(data.map(async movie => {
             const srcUrl = await getPosters(movie.title)
+            const director = await getDirector(movie.title)
+            const genre = await getGenre(movie.title)
+            const ratingSource = await getRatingSource(movie.title)
+            const ratingValue = await getRatingValue(movie.title)
+            const plot = await getPlot(movie.title)
+            const releaseDate = await getReleaseDate(movie.title)
+            const actors = await getActors(movie.title)
+            // const awards = await getAwards(movie.title)
             return `
             <div>
             <h4>Title: ${movie.title}</h4>
             <img style="height: 150px; width: 120px" src="${srcUrl}" >
-            <p>Director: ${movie.director}</p>
-            <p>Rating: ${movie.rating}</p>
-            <p>Genre: ${movie.genre}</p>
+            <p>Release Date: ${releaseDate}</p>
+            <p>Rating: ${ratingSource} ${ratingValue}</p>
+            <p>Genre: ${genre}</p>
+            <p>Plot: ${plot}</p>
+            <p>Actors: ${actors}</p>
+            <p>Director: ${director}</p>
             <label for="edit-title-box">Edit Title: </label>
             <input type="text" class="edit-title-box" data-id="${movie.id}" placeholder="${movie.title}">
-            <label for="edit-director-box">Edit Director: </label>
-            <input type="text" class="edit-director-box" data-id="${movie.id}" placeholder="${movie.director}">
-            <label for="edit-rating-box">Edit Rating: </label>
-            <input type="text" class="edit-rating-box" data-id="${movie.id}" placeholder="${movie.rating}">
-            <label for="edit-genre-box">Edit Genre: </label>
-            <input type="text" class="edit-genre-box" data-id="${movie.id}" placeholder="${movie.genre}">
             <button data-id="${movie.id}" class="edit">Edit</button>
             <button data-id="${movie.id}" class="delete">Delete</button>       
             </div>`
@@ -53,33 +58,6 @@ const renderMovies = () => {
                         title: $(this).parent().children('.edit-title-box').val()
                     }
                     if (newMovie.title !== '') {
-                        editMovie(newMovie)
-                    }
-                }
-                if ($(this).parent().children('.edit-director-box').attr('data-id') === $(this).attr('data-id')) {
-                    let newMovie = {
-                        id: $(this).attr('data-id'),
-                        director: $(this).parent().children('.edit-director-box').val()
-                    }
-                    if (newMovie.director !== '') {
-                        editMovie(newMovie)
-                    }
-                }
-                if ($(this).parent().children('.edit-rating-box').attr('data-id') === $(this).attr('data-id')) {
-                    let newMovie = {
-                        id: $(this).attr('data-id'),
-                        rating: $(this).parent().children('.edit-rating-box').val()
-                    }
-                    if (newMovie.rating !== '') {
-                        editMovie(newMovie)
-                    }
-                }
-                if ($(this).parent().children('.edit-genre-box').attr('data-id') === $(this).attr('data-id')) {
-                    let newMovie = {
-                        id: $(this).attr('data-id'),
-                        genre: $(this).parent().children('.edit-genre-box').val()
-                    }
-                    if (newMovie.genre !== '') {
                         editMovie(newMovie)
                     }
                 }
@@ -147,4 +125,35 @@ const getPosters = (movie) => {
     const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
     return fetch(URL).then(res => res.json()).then(data => data.Poster);
 }
-// getPosters('Step Brothers').then(data => console.log(data))
+const getDirector = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Director);
+}
+const getGenre = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Genre);
+}
+const getRatingSource = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Ratings[1].Source);
+}
+const getRatingValue = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Ratings[1].Value);
+}
+const getPlot = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Plot);
+}
+const getReleaseDate = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Released);
+}
+const getActors = (movie) => {
+    const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+    return fetch(URL).then(res => res.json()).then(data => data.Actors);
+}
+// const getAwards = (movie) => {
+//     const URL = `http://www.omdbapi.com/?apikey=564fffa2&t=${encodeURIComponent(movie)}`;
+//     return fetch(URL).then(res => res.json()).then(data => data.Awards);
+// }
