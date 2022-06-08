@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Anton', sans-serif;
+}
+.container {
+    position: relative;
+    text-align: center;
+    color: black;
+    text-wrap: normal;
+    width: 320px;
+}
+
+.centered {
+    position: absolute;
+    top: 45%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+.movie-info {
+    visibility: hidden;
+}
+
+p {
+    margin: .5px auto;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+a > i {
+    color: black;
+}
+
+
